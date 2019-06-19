@@ -1,0 +1,418 @@
+﻿@model QueueSystemWeb.Models.ReservationOffline
+
+@{
+    ViewBag.Title = "CheckAttend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:none">
+    @Session["UserID"];
+    @Session["UserName"];
+</div>
+
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="admin-logo logo-wrap-pro">
+                        <a href="#">
+                            <img src="@Url.Content(" ~/Content/project/")img/logo/log.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+                            <li class="nav-item">
+                                <a style="text-align:center;display:block;" onclick="seeAll()">كل الاشعارات</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-bell"></i>
+                                    @if (@ViewBag.countUnseenNotis != 0)
+                                    {
+                                        <span style="background-color: red;color: white;font-size: 13px;position: absolute;top:10px;right: 10px;width:20px;height:20px;border-radius:100%;text-align:center;">@ViewBag.countUnseenNotis</span>
+                                    }
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX" style="overflow-y:scroll; height:400px;width:400px;">
+                                    @foreach (var x in ViewBag.allNotis)
+                                    {
+                                        if (x.seen == true)
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                <span id="seen" style="background-color: dodgerblue;width:7px;height:7px;border-radius:100%;position: absolute;right:3px;"></span>
+                                            </a>
+                                        }
+
+                                    }
+                                    @*<div style="background-color:#ff8196;color:black;width:382px;border:groove;display:inline-block;">
+                    <a style="text-align:center;display:block;" onclick="seeAll()">See All</a>
+                </div>*@
+                                </div>
+                            </li>
+
+
+
+                            <li class="nav-item">
+                                <a href="/employee/CheckAttend" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-check"></i>
+                                    <span class="mini-dn">مراجعه الحضور</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-eye"></i> عرض <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX">
+                                    <a href="/employee/ReplayComplainOrInquire" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-comment login-user"></i>
+                                        <span class="mini-dn">الرسائل</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                    <a href="/employee/Showrequests" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-dropbox"></i>
+                                        <span class="mini-dn">الطالبات</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+
+                                    <a href="/employee/showblock" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-expeditedssl"></i>
+                                        <span class="mini-dn">العملاء المحظورين</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                             
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/employee/EditProfile" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">تعديل الصفحه الشخصيه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="~/employee/Index" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-backward"></i>
+                                    <span class="mini-dn">رجوع</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                       <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="header-right-info">
+                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+
+
+                                </a>
+                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <li>
+                                        <a href="~/employee/Index"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>الصفحه الشخصيه</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Logout"style="margin-left:20px"><span class="adminpro-icon adminpro-locked author-log-ic"></span>تسجيل الخروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+
+            @using (Html.BeginForm("Reserve", "employee", FormMethod.Post, new { @id = "msform", @class = "adminpro-form", enctype = "multipart/form-data" }))
+            {
+                <div class="col-lg-6">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="logo">
+                                    <a href="#">
+                                        <img src="@Url.Content("~/Content/project/")img/logo/images2.jpg" alt="" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="login-title">
+                                        <h1>الحجز بدون انترنت</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>الاسم بالكامل</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-input-area">
+                                        @*<input type="text" id="name" name="name"/>*@
+                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @name = "name", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user"style="margin-left:60px;top:10px"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>رقم التلفون</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-input-area">
+                                        @*<input type="text" id="phone" name="phone" />*@
+                                        @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @name = "phone", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                        <i class="fa fa-phone login-user" aria-hidden="true" style="margin-left:60px;top:10px"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>الخدمه</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="interested-input-area" style="width: 400px;">
+                                        @Html.DropDownListFor(model => model.service_id,
+                                        new SelectList(Model.services, "id", "name"), "--اختار الخدمه--",
+                                        new { @name = "interestedcategory" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>التاريخ</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-input-area">
+                                        @*<input type="text" name="date" id="date" />*@
+                                        @Html.EditorFor(model => model.date, new { htmlAttributes = new { @name = "date", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+                                        <i class="fa fa-calendar login-user" aria-hidden="true" style="margin-left:60px;top:10px"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>الوقت</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="interested-input-area" style="width: 400px;">
+                                        @Html.DropDownListFor(model => model.time,
+                                        new List<SelectListItem>(), "--اختار الوقت--",
+                                        new { @name = "interestedcategory" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8">
+                                    <div class="login-button-pro">
+
+                                        <button type="button" class="login-button login-button-rg" id="save"style="float:right">حجز </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui.js" type="text/javascript"></script>
+
+    <script>
+
+
+
+        $(document).ready(function () {
+            //empty list
+            var dates = [];
+
+            //push un available dates in list
+            $("#service_id").change(function () {
+                service_id = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/employee/GetUnAvailableDates?service_id=" + service_id,
+                    success: function (response) {
+                        response.forEach(function (entry) {
+                            //$("#time2").append("<option value=" + entry + ">" + entry + "</option>");
+                            dates.push(entry);
+                        });
+                    }
+
+                })
+            });
+
+            //disable unavailable dates from calender
+            $(function () {
+                $("#date").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: 0  ,
+                    beforeShowDay: function (date) {
+                        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                        return [dates.indexOf(string) == -1]
+                    }
+
+                });
+            });
+
+
+            //show available times for selected date
+            $("#date").change(function () {
+                date = $(this).val();
+                service_id = $("#service_id").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/employee/ShowTime?date=" + date + "&&service_id=" + service_id,
+                    success: function (response) {
+                        $("#time").empty();
+                        $("#time").append("<option>--Select Time--</option>");
+                        response.forEach(function (entry) {
+                            $("#time").append("<option value=" + entry + ">" + entry + "</option>");
+                        });
+                    }
+
+                })
+
+            })
+
+            //reserve
+            $("#save").click(function () {
+                myData = $("#msform").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/employee/Reserve",
+                    data: myData,
+                    success: function (response) {
+                        $("#msform").empty();
+                        if (response.result == 1) {
+                            alert("تم الحجز بنجاح");
+                            window.location.href = "Reserve";
+                        } else if (response.result == 0) {
+                            alert(" Error : Date or time of reservation can not be before now...");
+                            window.location.href = "Reserve";
+                        } else {
+                            alert("لم يتم الحجز");
+                            window.location.href = "Reserve";
+                        }
+
+                    }
+
+                })
+
+            })
+
+        });
+
+        showNoti(n);
+        function showNoti(n) {
+            document.location.reload(true);
+            window.location.href = "ShowNotiReferece?noti_id=" + n;    
+        }
+
+        function seeAll() {
+            document.location.reload(true);
+            window.location.href = "Get_All_Notification";    
+        }
+    </script>
+
+}

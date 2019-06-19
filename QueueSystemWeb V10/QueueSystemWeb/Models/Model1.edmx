@@ -1,0 +1,1414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QueueSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointments ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="time" Type="datetime" />
+          <Property Name="service_id" Type="int" />
+          <Property Name="user-id" Type="int" />
+          <Property Name="branch_id" Type="int" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="branch-location" Type="nvarchar" MaxLength="20" />
+          <Property Name="organization_id" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Doc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="file" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Emp_Org_Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="branch_id" Type="int" />
+          <Property Name="service_id" Type="int" />
+          <Property Name="org_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Job_title ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msg" Type="nvarchar" MaxLength="500" />
+          <Property Name="replay" Type="nvarchar" MaxLength="500" />
+          <Property Name="type" Type="nvarchar" MaxLength="100" />
+          <Property Name="status" Type="bit" />
+          <Property Name="from" Type="int" />
+          <Property Name="to" Type="int" />
+          <Property Name="emp_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msg" Type="nvarchar" MaxLength="1000" />
+          <Property Name="seen" Type="bit" />
+          <Property Name="dateTime" Type="datetime" />
+          <Property Name="type_noti" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="client_id" Type="int" />
+          <Property Name="type_noti_id" Type="int" />
+        </EntityType>
+        <EntityType Name="organization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="manger_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="empoyee-id" Type="int" />
+          <Property Name="service_id" Type="int" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="branch_id" Type="int" />
+          <Property Name="notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="timeOfReq" Type="datetime" />
+          <Property Name="timeOfChange" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Request_attachement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="path" Type="nvarchar" MaxLength="200" />
+          <Property Name="request_id" Type="int" />
+          <Property Name="Requried_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Requirments_Doc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="50" />
+          <Property Name="Service-id" Type="int" />
+          <Property Name="doc_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Services ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="starttime" Type="time" Precision="7" />
+          <Property Name="endtime" Type="time" Precision="7" />
+          <Property Name="NumOfEmp" Type="int" />
+          <Property Name="period" Type="time" Precision="7" />
+          <Property Name="breakStart" Type="time" Precision="7" />
+          <Property Name="breakPeriod" Type="time" Precision="7" />
+          <Property Name="org_id" Type="int" />
+          <Property Name="toFinish" Type="int" />
+          <Property Name="toExpire" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="ssn" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="person_id" Type="int" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="block" Type="bit" />
+          <Property Name="count" Type="int" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResetPassword" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Appointments _Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Appointments " Type="Self.Appointments " Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments ">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments _Services ">
+          <End Role="Services " Type="Self.Services " Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Appointments " Type="Self.Appointments " Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments ">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments _user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Appointments " Type="Self.Appointments " Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments ">
+              <PropertyRef Name="user-id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Branch_organization">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="organization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_organization">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_Services ">
+          <End Role="Services " Type="Self.Services " Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_ToTable">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1" />
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable_1">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable_2">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_ToTable_1">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="organization" Type="Self.organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization">
+              <PropertyRef Name="manger_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_attachement_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request_attachement" Type="Self.Request_attachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request_attachement">
+              <PropertyRef Name="request_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_attachement_Requirments_Doc">
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request_attachement" Type="Self.Request_attachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirments_Doc">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request_attachement">
+              <PropertyRef Name="Requried_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Services ">
+          <End Role="Services " Type="Self.Services " Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="empoyee-id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_user1">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirments_Doc_Doc">
+          <End Role="Doc" Type="Self.Doc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doc">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Requirments_Doc">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirments_Doc_Services ">
+          <End Role="Services " Type="Self.Services " Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Requirments_Doc">
+              <PropertyRef Name="Service-id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services _organization">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1" />
+          <End Role="Services " Type="Self.Services " Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services ">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_Job_title ">
+          <End Role="Job_title " Type="Self.Job_title " Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_title ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QueueSystemDBModelStoreContainer">
+          <EntitySet Name="Appointments " EntityType="Self.Appointments " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doc" EntityType="Self.Doc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emp_Org_Services" EntityType="Self.Emp_Org_Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job_title " EntityType="Self.Job_title " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization" EntityType="Self.organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request_attachement" EntityType="Self.Request_attachement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requirments_Doc" EntityType="Self.Requirments_Doc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services " EntityType="Self.Services " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointments _Branch" Association="Self.FK_Appointments _Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Appointments " EntitySet="Appointments " />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments _Services " Association="Self.FK_Appointments _Services ">
+            <End Role="Services " EntitySet="Services " />
+            <End Role="Appointments " EntitySet="Appointments " />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments _user" Association="Self.FK_Appointments _user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Appointments " EntitySet="Appointments " />
+          </AssociationSet>
+          <AssociationSet Name="FK_Branch_organization" Association="Self.FK_Branch_organization">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_organization" Association="Self.FK_Emp_Org_Services_organization">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_Services " Association="Self.FK_Emp_Org_Services_Services ">
+            <End Role="Services " EntitySet="Services " />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_ToTable" Association="Self.FK_Emp_Org_Services_ToTable">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_user" Association="Self.FK_Emp_Org_Services_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable" Association="Self.FK_Messages_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable_1" Association="Self.FK_Messages_ToTable_1">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable_2" Association="Self.FK_Messages_ToTable_2">
+            <End Role="user" EntitySet="user" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_ToTable" Association="Self.FK_Notification_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_ToTable_1" Association="Self.FK_Notification_ToTable_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_user" Association="Self.FK_organization_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="organization" EntitySet="organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_attachement_Request" Association="Self.FK_Request_attachement_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Request_attachement" EntitySet="Request_attachement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_attachement_Requirments_Doc" Association="Self.FK_Request_attachement_Requirments_Doc">
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+            <End Role="Request_attachement" EntitySet="Request_attachement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Branch" Association="Self.FK_Request_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Services " Association="Self.FK_Request_Services ">
+            <End Role="Services " EntitySet="Services " />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_user" Association="Self.FK_Request_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_user1" Association="Self.FK_Request_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirments_Doc_Doc" Association="Self.FK_Requirments_Doc_Doc">
+            <End Role="Doc" EntitySet="Doc" />
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirments_Doc_Services " Association="Self.FK_Requirments_Doc_Services ">
+            <End Role="Services " EntitySet="Services " />
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services _organization" Association="Self.FK_Services _organization">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Services " EntitySet="Services " />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_Job_title " Association="Self.FK_user_Job_title ">
+            <End Role="Job_title " EntitySet="Job_title " />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QueueSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointments_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+          <Property Name="service_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Appointments__Branch" FromRole="Appointments_" ToRole="Branch" />
+          <NavigationProperty Name="Services_" Relationship="Self.FK_Appointments__Services_" FromRole="Appointments_" ToRole="Services_" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Appointments__user" FromRole="Appointments_" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="branch_location" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="organization_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments_" Relationship="Self.FK_Appointments__Branch" FromRole="Branch" ToRole="Appointments_" />
+          <NavigationProperty Name="organization" Relationship="Self.FK_Branch_organization" FromRole="Branch" ToRole="organization" />
+          <NavigationProperty Name="Emp_Org_Services" Relationship="Self.FK_Emp_Org_Services_organization" FromRole="Branch" ToRole="Emp_Org_Services" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_ToTable_1" FromRole="Branch" ToRole="Messages" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Branch" FromRole="Branch" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Doc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="file" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requirments_Doc" Relationship="Self.FK_Requirments_Doc_Doc" FromRole="Doc" ToRole="Requirments_Doc" />
+        </EntityType>
+        <EntityType Name="Emp_Org_Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="service_id" Type="Int32" />
+          <Property Name="org_id" Type="Int32" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Emp_Org_Services_organization" FromRole="Emp_Org_Services" ToRole="Branch" />
+          <NavigationProperty Name="Services_" Relationship="Self.FK_Emp_Org_Services_Services_" FromRole="Emp_Org_Services" ToRole="Services_" />
+          <NavigationProperty Name="organization" Relationship="Self.FK_Emp_Org_Services_ToTable" FromRole="Emp_Org_Services" ToRole="organization" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Emp_Org_Services_user" FromRole="Emp_Org_Services" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Job_title_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_Job_title_" FromRole="Job_title_" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msg" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="replay" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="from" Type="Int32" />
+          <Property Name="to" Type="Int32" />
+          <Property Name="emp_id" Type="Int32" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Messages_ToTable_1" FromRole="Messages" ToRole="Branch" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Messages_ToTable" FromRole="Messages" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_Messages_ToTable_2" FromRole="Messages" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msg" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="seen" Type="Boolean" />
+          <Property Name="dateTime" Type="DateTime" Precision="3" />
+          <Property Name="type_noti" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="client_id" Type="Int32" />
+          <Property Name="type_noti_id" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Notification_ToTable" FromRole="Notification" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_Notification_ToTable_1" FromRole="Notification" ToRole="user" />
+        </EntityType>
+        <EntityType Name="organization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="manger_id" Type="Int32" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Branch_organization" FromRole="organization" ToRole="Branch" />
+          <NavigationProperty Name="Emp_Org_Services" Relationship="Self.FK_Emp_Org_Services_ToTable" FromRole="organization" ToRole="Emp_Org_Services" />
+          <NavigationProperty Name="user" Relationship="Self.FK_organization_user" FromRole="organization" ToRole="user" />
+          <NavigationProperty Name="Services_" Relationship="Self.FK_Services__organization" FromRole="organization" ToRole="Services_" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="empoyee_id" Type="Int32" />
+          <Property Name="service_id" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="timeOfReq" Type="DateTime" Precision="3" />
+          <Property Name="timeOfChange" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Request_Branch" FromRole="Request" ToRole="Branch" />
+          <NavigationProperty Name="Request_attachement" Relationship="Self.FK_Request_attachement_Request" FromRole="Request" ToRole="Request_attachement" />
+          <NavigationProperty Name="Services_" Relationship="Self.FK_Request_Services_" FromRole="Request" ToRole="Services_" />
+          <NavigationProperty Name="user" Relationship="Self.FK_Request_user" FromRole="Request" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_Request_user1" FromRole="Request" ToRole="user" />
+        </EntityType>
+        <EntityType Name="Request_attachement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="path" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="request_id" Type="Int32" />
+          <Property Name="Requried_id" Type="Int32" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_attachement_Request" FromRole="Request_attachement" ToRole="Request" />
+          <NavigationProperty Name="Requirments_Doc" Relationship="Self.FK_Request_attachement_Requirments_Doc" FromRole="Request_attachement" ToRole="Requirments_Doc" />
+        </EntityType>
+        <EntityType Name="Requirments_Doc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Service_id" Type="Int32" />
+          <Property Name="doc_id" Type="Int32" />
+          <NavigationProperty Name="Doc" Relationship="Self.FK_Requirments_Doc_Doc" FromRole="Requirments_Doc" ToRole="Doc" />
+          <NavigationProperty Name="Request_attachement" Relationship="Self.FK_Request_attachement_Requirments_Doc" FromRole="Requirments_Doc" ToRole="Request_attachement" />
+          <NavigationProperty Name="Services_" Relationship="Self.FK_Requirments_Doc_Services_" FromRole="Requirments_Doc" ToRole="Services_" />
+        </EntityType>
+        <EntityType Name="Services_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="starttime" Type="Time" Precision="7" />
+          <Property Name="endtime" Type="Time" Precision="7" />
+          <Property Name="NumOfEmp" Type="Int32" />
+          <Property Name="period" Type="Time" Precision="7" />
+          <Property Name="breakStart" Type="Time" Precision="7" />
+          <Property Name="breakPeriod" Type="Time" Precision="7" />
+          <Property Name="org_id" Type="Int32" />
+          <Property Name="toFinish" Type="Int32" />
+          <Property Name="toExpire" Type="Int32" />
+          <NavigationProperty Name="Appointments_" Relationship="Self.FK_Appointments__Services_" FromRole="Services_" ToRole="Appointments_" />
+          <NavigationProperty Name="Emp_Org_Services" Relationship="Self.FK_Emp_Org_Services_Services_" FromRole="Services_" ToRole="Emp_Org_Services" />
+          <NavigationProperty Name="organization" Relationship="Self.FK_Services__organization" FromRole="Services_" ToRole="organization" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Services_" FromRole="Services_" ToRole="Request" />
+          <NavigationProperty Name="Requirments_Doc" Relationship="Self.FK_Requirments_Doc_Services_" FromRole="Services_" ToRole="Requirments_Doc" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ssn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="person_id" Type="Int32" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="block" Type="Boolean" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments_" Relationship="Self.FK_Appointments__user" FromRole="user" ToRole="Appointments_" />
+          <NavigationProperty Name="Emp_Org_Services" Relationship="Self.FK_Emp_Org_Services_user" FromRole="user" ToRole="Emp_Org_Services" />
+          <NavigationProperty Name="Job_title_" Relationship="Self.FK_user_Job_title_" FromRole="user" ToRole="Job_title_" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_ToTable" FromRole="user" ToRole="Messages" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK_Messages_ToTable_2" FromRole="user" ToRole="Messages" />
+          <NavigationProperty Name="Notification" Relationship="Self.FK_Notification_ToTable" FromRole="user" ToRole="Notification" />
+          <NavigationProperty Name="Notification1" Relationship="Self.FK_Notification_ToTable_1" FromRole="user" ToRole="Notification" />
+          <NavigationProperty Name="organization" Relationship="Self.FK_organization_user" FromRole="user" ToRole="organization" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_user" FromRole="user" ToRole="Request" />
+          <NavigationProperty Name="Request1" Relationship="Self.FK_Request_user1" FromRole="user" ToRole="Request" />
+        </EntityType>
+        <Association Name="FK_Appointments__Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Appointments_" Type="Self.Appointments_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments_">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments__Services_">
+          <End Role="Services_" Type="Self.Services_" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Appointments_" Type="Self.Appointments_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments_">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments__user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Appointments_" Type="Self.Appointments_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments_">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Branch_organization">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="organization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_organization">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable_1">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirments_Doc_Doc">
+          <End Role="Doc" Type="Self.Doc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doc">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Requirments_Doc">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_Services_">
+          <End Role="Services_" Type="Self.Services_" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_ToTable">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1" />
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Emp_Org_Services_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Emp_Org_Services" Type="Self.Emp_Org_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Emp_Org_Services">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_Job_title_">
+          <End Role="Job_title_" Type="Self.Job_title_" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_title_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_ToTable_2">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_ToTable">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_ToTable_1">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_organization_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="organization" Type="Self.organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="organization">
+              <PropertyRef Name="manger_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services__organization">
+          <End Role="organization" Type="Self.organization" Multiplicity="0..1" />
+          <End Role="Services_" Type="Self.Services_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_">
+              <PropertyRef Name="org_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_attachement_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request_attachement" Type="Self.Request_attachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request_attachement">
+              <PropertyRef Name="request_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Services_">
+          <End Role="Services_" Type="Self.Services_" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="empoyee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_user1">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_attachement_Requirments_Doc">
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Request_attachement" Type="Self.Request_attachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirments_Doc">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request_attachement">
+              <PropertyRef Name="Requried_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requirments_Doc_Services_">
+          <End Role="Services_" Type="Self.Services_" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requirments_Doc" Type="Self.Requirments_Doc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Requirments_Doc">
+              <PropertyRef Name="Service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QueueSystemDBWeb1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments_" EntityType="Self.Appointments_" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" />
+          <EntitySet Name="Doc" EntityType="Self.Doc" />
+          <EntitySet Name="Emp_Org_Services" EntityType="Self.Emp_Org_Services" />
+          <EntitySet Name="Job_title_" EntityType="Self.Job_title_" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" />
+          <EntitySet Name="organization" EntityType="Self.organization" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="Request_attachement" EntityType="Self.Request_attachement" />
+          <EntitySet Name="Requirments_Doc" EntityType="Self.Requirments_Doc" />
+          <EntitySet Name="Services_" EntityType="Self.Services_" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_Appointments__Branch" Association="Self.FK_Appointments__Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Appointments_" EntitySet="Appointments_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments__Services_" Association="Self.FK_Appointments__Services_">
+            <End Role="Services_" EntitySet="Services_" />
+            <End Role="Appointments_" EntitySet="Appointments_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments__user" Association="Self.FK_Appointments__user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Appointments_" EntitySet="Appointments_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Branch_organization" Association="Self.FK_Branch_organization">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_organization" Association="Self.FK_Emp_Org_Services_organization">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable_1" Association="Self.FK_Messages_ToTable_1">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Branch" Association="Self.FK_Request_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirments_Doc_Doc" Association="Self.FK_Requirments_Doc_Doc">
+            <End Role="Doc" EntitySet="Doc" />
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_Services_" Association="Self.FK_Emp_Org_Services_Services_">
+            <End Role="Services_" EntitySet="Services_" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_ToTable" Association="Self.FK_Emp_Org_Services_ToTable">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Emp_Org_Services_user" Association="Self.FK_Emp_Org_Services_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Emp_Org_Services" EntitySet="Emp_Org_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_Job_title_" Association="Self.FK_user_Job_title_">
+            <End Role="Job_title_" EntitySet="Job_title_" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable" Association="Self.FK_Messages_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_ToTable_2" Association="Self.FK_Messages_ToTable_2">
+            <End Role="user" EntitySet="user" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_ToTable" Association="Self.FK_Notification_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_ToTable_1" Association="Self.FK_Notification_ToTable_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_organization_user" Association="Self.FK_organization_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="organization" EntitySet="organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services__organization" Association="Self.FK_Services__organization">
+            <End Role="organization" EntitySet="organization" />
+            <End Role="Services_" EntitySet="Services_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_attachement_Request" Association="Self.FK_Request_attachement_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Request_attachement" EntitySet="Request_attachement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Services_" Association="Self.FK_Request_Services_">
+            <End Role="Services_" EntitySet="Services_" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_user" Association="Self.FK_Request_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_user1" Association="Self.FK_Request_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_attachement_Requirments_Doc" Association="Self.FK_Request_attachement_Requirments_Doc">
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+            <End Role="Request_attachement" EntitySet="Request_attachement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requirments_Doc_Services_" Association="Self.FK_Requirments_Doc_Services_">
+            <End Role="Services_" EntitySet="Services_" />
+            <End Role="Requirments_Doc" EntitySet="Requirments_Doc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QueueSystemDBModelStoreContainer" CdmEntityContainer="QueueSystemDBWeb1">
+          <EntitySetMapping Name="Appointments_">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Appointments_">
+              <MappingFragment StoreEntitySet="Appointments ">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+                <ScalarProperty Name="user_id" ColumnName="user-id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branch">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="branch_location" ColumnName="branch-location" />
+                <ScalarProperty Name="organization_id" ColumnName="organization_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doc">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Doc">
+              <MappingFragment StoreEntitySet="Doc">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="file" ColumnName="file" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emp_Org_Services">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Emp_Org_Services">
+              <MappingFragment StoreEntitySet="Emp_Org_Services">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_title_">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Job_title_">
+              <MappingFragment StoreEntitySet="Job_title ">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="msg" ColumnName="msg" />
+                <ScalarProperty Name="replay" ColumnName="replay" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="msg" ColumnName="msg" />
+                <ScalarProperty Name="seen" ColumnName="seen" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="type_noti" ColumnName="type_noti" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="type_noti_id" ColumnName="type_noti_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organization">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.organization">
+              <MappingFragment StoreEntitySet="organization">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="manger_id" ColumnName="manger_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="empoyee_id" ColumnName="empoyee-id" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="timeOfReq" ColumnName="timeOfReq" />
+                <ScalarProperty Name="timeOfChange" ColumnName="timeOfChange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request_attachement">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Request_attachement">
+              <MappingFragment StoreEntitySet="Request_attachement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="request_id" ColumnName="request_id" />
+                <ScalarProperty Name="Requried_id" ColumnName="Requried_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requirments_Doc">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Requirments_Doc">
+              <MappingFragment StoreEntitySet="Requirments_Doc">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="Service_id" ColumnName="Service-id" />
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.Services_">
+              <MappingFragment StoreEntitySet="Services ">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="NumOfEmp" ColumnName="NumOfEmp" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="breakStart" ColumnName="breakStart" />
+                <ScalarProperty Name="breakPeriod" ColumnName="breakPeriod" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="toFinish" ColumnName="toFinish" />
+                <ScalarProperty Name="toExpire" ColumnName="toExpire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="QueueSystemDBModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="block" ColumnName="block" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,670 @@
+﻿@model IEnumerable<QueueSystemWeb.Models.Services_>
+
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="admin-logo logo-wrap-pro">
+                        <a href="#">
+                            <img src="@Url.Content("~/Content/project/")img/logo/log.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+
+                            <li class="nav-item">
+                                <a href="~/manager/Addemp" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">اضافه موظف</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="~/manager/AssignEmpToServices" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">اضافه موظف لخدمه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-pie-chart"></i> عرض <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX">
+                                    <a href="~/manager/managerreport" class="dropdown-item">التقارير</a>
+                                    <a href="~/manager/showempBlocked" class="dropdown-item">الموظفين المحظورين</a>
+                                    <a href="~/manager/showempunBlocked" class="dropdown-item">الموظفين الغير محظورين</a>
+                                    <a href="~/manager/showorg" class="dropdown-item">المنظمات</a>
+
+
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/manager/EditProfile" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">تعديل الصفحه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="~/manager/Index" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-backward"></i>
+                                    <span class="mini-dn">رجوع</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="header-right-info">
+                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+
+
+                                </a>
+                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <li>
+                                        <a href="~/employee/Index"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>الصفحه الشخصيه</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Logout" style="margin-left:20px"><span class="adminpro-icon adminpro-locked author-log-ic"></span>تسجيل الخروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" style="margin-top:30px;margin-right:930px">
+    <div class="col-lg-6">
+        <div class="breadcome-heading">
+            <form role="search" class="">
+                <input type="text" placeholder="بحث..." class="form-control">
+                <a href=""><i style="margin-right:125px" class="fa fa-search"></i></a>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div style="margin-right:50px">
+
+
+
+
+    <div class="sparkline8-hd" style="margin-top:-60px;">
+        <div class="main-sparkline8-hd" style="margin-left:5px">
+            <h1 style="display:inline; ">تعديل الخدمات</h1>
+            <div class="login-button-pro" style="margin-left:700px;margin-top:-30px; display:inline">
+                <button style="margin-right:10px;margin-top: -45px;" class="login-button login-button-lg" onclick="addNewOrder()">خدمه جديده</button>
+            </div>
+        </div>
+    </div>
+    @if (Model.Count() != 0)
+    {
+        <div class="sparkline8-graph">
+            <div class="static-table-list">
+                <table id="table" data-toggle="table" data-pagination="false" data-show-toggle="false" data-click-to-select="true" data-toolbar="#toolbar">
+
+                    <thead>
+                        <tr>
+                            <th>اسم الخدمه</th>
+                            <th>بدايه الوقت</th>
+                            @*<th>الورق المطلوب</th>*@
+                            <th>اضافة ورق</th>
+                            
+                            <th>اخر ...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var serve in Model)
+                        {
+                            //var i = 0;
+                            <tr>
+                                <td>@serve.name</td>
+                                <td>@serve.starttime</td>
+                                @*<td>
+                                    @foreach(var x in ViewBag.all_docs[i])
+                                    {
+                                        <text>@x.Doc.name</text>
+                                    }
+                                    @i++;
+                                </td>*@
+                                <td>
+                                    <input type="button" value="اضافة ملفات" id="serviceID" name="serviceID" onclick="add(this)" data-assigned-id="@serve.id" />
+                                </td>
+                                @*<td>@Html.ActionLink("Delete", "deleteserv", new { @id = serve.id })</td>
+                                    <td>@Html.ActionLink("Edit", "Editservice", new { @id = serve.id })</td>*@
+                                <td>
+                                    <div class="left-custom-menu-adp-wrap">
+                                        <ul class="nav navbar-nav left-sidebar-menu-pro">
+                                            <li class="nav-item">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                    ...
+                                                </a>
+
+                                                <div role="menu" class="dropdown-menu  animated flipInX">
+                                                    @Html.ActionLink("مسح", "deleteserv", new { @id = serve.id },
+                                                    new { onclick = "return confirm('هل انت متأكد تريد مسح خدمة   " + serve.name + "?');" })
+                                                    @Html.ActionLink("تعديل", "Editservice", new { @id = serve.id })
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="panel-body">
+            <h3 style="color:red;">Empty!</h3>
+        </div>
+
+    }
+</div>
+
+
+
+<div style="width:1300px" class="modal fade" id="newOrderModal">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <form id="adminpro-register-form" class="adminpro-form">
+                <div class="col-lg-6">
+                    <div class="login-bg" style="width: 1000px;">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img src="~/Content/project/img/logo/images2.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>اضافه خدمه جديده</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="OrderId" />
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>الاسم</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="text" id="name" name="name" placeholder="الاسم" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>بدايه الوقت</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="time" id="starttime" name="starttime" placeholder="بدايه الوقت" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>نهايه الوقت</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="time" id="endtime" name="endtime" placeholder="endtime" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>مده</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="time" min="00:05:00" max="00:55:00" id="period" name="period" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>بدايه الراحه</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="time" id="breakStart" name="breakStart" placeholder="بدايه الراحه" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>مده الراحه</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="time" min="00:15:00" max="00:55:00" id="breakPeriod" name="breakPeriod" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>مدة تنفيذ الاوراق</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="number" id="toFinish" name="toFinish" />
+                                    يوم
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>مدة عدم الاوراق</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="number" id="toExpire" name="toExpire" />
+                                    يوم
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <a id="addToList" class="btn btn-primary">اضافه الي القائمه</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sparkline8-graph">
+                            <div class="static-table-list" style="margin-right:-30px">
+                                <table id="detailsTable" class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>الاسم</th>
+                                            <th>بدايه الوقت</th>
+                                            <th>نهايه الوقت</th>
+                                            <th>مده</th>
+                                            <th>بدايه الراحه</th>
+                                            <th>مده الراحه</th>
+                                            <th>مدة تنفيذ الاوراق</th>
+                                            <th>مدة عدم الاوراق</th>
+                                            <th>مسح</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="reset" class="login-button login-button-lg" data-dismiss="modal" style="float:right">غلق</button>
+                                    <button id="saveOrder" class="login-button login-button-rg" style="float:right">حفظ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addDoc" style="width:1300px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <form id="adminpro-register-form" class="adminpro-form">
+                <div class="col-lg-6">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img src="~/Content/project/img/logo/images2.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>اضافه ملف</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="OrderId" />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="interested-input-area">
+                                    @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.docment, "اختار ملف...", new { @class = "form-control", onchange = @"addToListDoc" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>ملف جديد</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="text" id="namedoc" name="namedoc" placeholder="اسم الملف" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>ملاحظات</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="text" id="notes" name="notes" placeholder="ضع ملاحظه هنا..." />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <a id="addToListDoc" class="btn btn-primary"> اضافه الي القائمه</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline8-graph">
+                            <div class="static-table-list">
+                                <table id="detailsTableForDoc" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>الاسم </th>
+                                            <th>الاسم </th>
+                                            <th>ملاحظات </th>
+                                            <th>خدمات</th>
+                                            <th>مسح</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="reset" class="login-button login-button-lg" data-dismiss="modal" style="float:right;width: 140px;">غلق</button>
+                                    <button id="saveDoc" type="submit" class="login-button login-button-rg" style="float:right">حفظ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+
+@* js for add services  *@
+@section scripts{
+    <script>
+        //Show Modal.
+        function addNewOrder() {
+            $("#newOrderModal").modal();
+        }
+        //Add Multiple Order.
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#name").val()) == "" || $.trim($("#starttime").val()) == "") return;
+
+            var name = $("#name").val(),
+                starttime = $("#starttime").val(),
+                endtime = $("#endtime").val(),
+                period = $("#period").val(),
+                breakStart = $("#breakStart").val(),
+                breakPeriod = $("#breakPeriod").val(),
+                toFinish = $("#toFinish").val(),
+                toExpire = $("#toExpire").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var productItem = '<tr><td>' + name + '</td><td>' + starttime + '</td><td>' + endtime + '<td>' + period + '</td><td>' + breakStart + '</td><td>' + breakPeriod + '</td><td>' + toFinish + '</td><td>' + toExpire + '</td><td><a data-itemId="0" href="#" class="deleteItem"><i class="fa big-icon fa fa-trash-o">  مسح  </i></a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem();
+        });
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#name").val('');
+            $("#starttime").val('');
+            $("#endtime").val('');
+            $("#period").val('');
+            $("#breakStart").val('');
+            $("#breakPeriod").val('');
+            $("#toFinish").val('');
+            $("#toExpire").val('');
+        }
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/manager/showservise2",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    name: $(this).find('td:eq(0)').html(),
+                    starttime: $(this).find('td:eq(1)').html(),
+                    endtime: $(this).find('td:eq(2)').html(),
+                    period: $(this).find('td:eq(3)').html(),
+                    breakStart: $(this).find('td:eq(4)').html(),
+                    breakPeriod: $(this).find('td:eq(5)').html(),
+                    toFinish: $(this).find('td:eq(6)').html(),
+                    toExpire: $(this).find('td:eq(7)').html(),
+                });
+            });
+
+
+            var data = JSON.stringify({
+                name: $("#name").val(),
+                address: $("#address").val(),
+                order: orderArr
+            });
+
+            $.when(saveOrder(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+
+    </script>
+
+
+    @* js for add documents  *@
+    <script>
+        //Show Modal.
+
+        function add(elem) {
+            $("#addDoc").modal();
+            var serviceID = $(elem).data('assigned-id');
+            alert(serviceID);
+            $("#serviceID").val() = serviceID;
+        }
+        //Add Multiple Order.
+        $("#addToListDoc").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#notes").val()) == "") return;
+
+            var namedoc = $("#namedoc").val(),
+                id = $("#id").val(),
+                notes = $("#notes").val(),
+                serviceID = $("#serviceID").data('assigned-id'),
+                detailsTableBody = $("#detailsTableForDoc tbody");
+
+
+            var docItem = '<tr><td>' + namedoc + '</td><td>' + id + '</td><td>' + notes + '</td><td>' + serviceID + '</td> <td><a data-itemId="0" href="#" class="deleteItem"> <i class="fa big-icon fa fa-trash-o">  مسح  </i></a></td></tr>';
+            detailsTableBody.append(docItem);
+            clearItem();
+        });
+
+
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#namedoc").val('');
+        }
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveDoc(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/manager/AddDocument",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#saveDoc").click(function (e) {
+            e.preventDefault();
+
+            var DocArr = [];
+            DocArr.length = 0;
+
+            $.each($("#detailsTableForDoc tbody tr"), function () {
+                DocArr.push({
+                    namedoc: $(this).find('td:eq(0)').html(),
+                    id: $(this).find('td:eq(1)').html(),
+                    notes: $(this).find('td:eq(2)').html(),
+                    serviceID: $(this).find('td:eq(3)').html(),
+
+                });
+            });
+
+
+            var data = JSON.stringify({
+                namedoc: $("#namedoc").val(),
+                serviceID: $("#serviceID").val(),
+                documents: DocArr
+            });
+
+            $.when(saveDoc(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,161 @@
+﻿@model QueueSystemWeb.Models.user
+@{
+    ViewBag.Title = "Login";
+}
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+                            <li class="nav-item">
+                                <a href="#" role="button" aria-expanded="false">
+
+                                    <span class="mini-dn" style="font-weight:bold; font-size:30px">مرحبا بكم في الموقع</span>
+
+                                </a>
+                            </li>
+                            
+                       
+
+                        </ul>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+@Session["UserID"]
+@Session["UserName"]
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @id = "msform", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<center>
+    <div class="login-form-area mg-t-30 mg-b-40" style="width: 1500px;margin-right: -150px;line-height: inherit;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <form id="adminpro-form" class="adminpro-form">
+                    <div class="col-lg-4">
+                        <div class="login-bg" style="height:650px; width: 570px;">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img src="@Url.Content("~/Content/project/")img/logo/images2.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="login-title">
+                                        <h1 style="margin-right: -220px;">قائمه تسجيل الدخول</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>الاسم</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-input-area">
+                                        @*<input type="text" id="username" name="username" />*@
+                                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @name = "username", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user" style="margin-top: 8px;margin-left: 5px;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>كلمه السر</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-input-area">
+                                        @*<input type="password" id="password" name="password" />*@
+                                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @name = "password", @class = "form-control" , @type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                        <i class="fa fa-lock login-user"style="margin-top: 8px;margin-left: 5px;"></i>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="forgot-password">
+                                                <a href="~/Home/ForgotPassword">هل نسيت كلمه السر؟</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-button-pro">
+                                        <button id="save"  type="button" class="login-button login-button-lg" style="float:right">تسجيل الدخول</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+
+</center>
+}
+
+<script>
+    $(document).ready(function () {
+
+        //reserve
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Home/Login",
+                data: myData,
+                success: function (response) {
+                    $("#msform").empty();
+                    if (response.result == 0) {
+                        alert("هذا المستخدم غير موجود");
+                        document.location.reload(true);
+                        window.location.href = "/Home/Login";
+                    }
+                    else if (response.result == 1) {
+                        document.location.reload(true);
+                        window.location.href = "/Home/profile";
+                    }
+                    else {
+                        alert("انت ممنوع من الدخول");
+                        document.location.reload(true);
+                        window.location.href = "/Home/Login";
+                    }
+                    
+
+                }
+
+            })
+
+        })
+
+    })
+</script>

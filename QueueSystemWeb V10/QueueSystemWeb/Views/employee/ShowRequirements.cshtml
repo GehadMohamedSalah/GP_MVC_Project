@@ -1,0 +1,358 @@
+﻿@model QueueSystemWeb.Models.RequestState
+
+@{
+    ViewBag.Title = "ShowRequirements";
+}
+<div style="display:none">
+    @Session["UserID"];
+    @Session["UserName"];
+</div>
+
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="admin-logo logo-wrap-pro">
+                        <a href="#">
+                            <img src="@Url.Content(" ~/Content/project/")img/logo/log.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+                            <li class="nav-item">
+                                <a style="text-align:center;display:block;" onclick="seeAll()">كل الاشعارات</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-bell"></i>
+                                    @if (@ViewBag.countUnseenNotis != 0)
+                                    {
+                                        <span style="background-color: red;color: white;font-size: 13px;position: absolute;top:10px;right: 10px;width:20px;height:20px;border-radius:100%;text-align:center;">@ViewBag.countUnseenNotis</span>
+                                    }
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX" style="overflow-y:scroll; height:400px;width:400px;">
+                                    @foreach (var x in ViewBag.allNotis)
+                                    {
+                                        if (x.seen == true)
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                <span id="seen" style="background-color: dodgerblue;width:7px;height:7px;border-radius:100%;position: absolute;right:3px;"></span>
+                                            </a>
+                                        }
+
+                                    }
+                                    @*<div style="background-color:#ff8196;color:black;width:382px;border:groove;display:inline-block;">
+                    <a style="text-align:center;display:block;" onclick="seeAll()">See All</a>
+                </div>*@
+                                </div>
+                            </li>
+
+
+
+                            <li class="nav-item">
+                                <a href="/employee/CheckAttend" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-check"></i>
+                                    <span class="mini-dn">مراجعه الحضور</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-eye"></i> عرض <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX">
+                                    <a href="/employee/ReplayComplainOrInquire" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-comment login-user"></i>
+                                        <span class="mini-dn">الرسائل</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                    <a href="/employee/Showrequests" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-dropbox"></i>
+                                        <span class="mini-dn">الطالبات</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+
+                                    <a href="/employee/showblock" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-expeditedssl"></i>
+                                        <span class="mini-dn">العملاء المحظورين</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/employee/Reserve" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-ticket"></i>
+                                    <span class="mini-dn">الحجز</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/employee/EditProfile" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">تعديل الصفحه الشخصيه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/employee/Index" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-backward"></i>
+                                    <span class="mini-dn">رجوع</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="header-right-info">
+                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+
+
+                                </a>
+                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <li>
+                                        <a href="~/employee/Index"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>الصفحه الشخصيه</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Logout"style="margin-left:20px"><span class="adminpro-icon adminpro-locked author-log-ic"></span>تسجيل الخروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@using (Html.BeginForm("ShowRequirements", "employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table style="width:100%">
+            <tr>
+                <td >
+                    <div class="slideshow-container"style="width:700px;">
+                        @for (int i = 0; i < ViewBag.reqAtts.Count; i++)
+                        {
+                            <div class="mySlides">
+                                <div class="numbertext">
+                                    <text>@(i + 1)</text> / <text>@ViewBag.reqAtts.Count</text><br />
+                                    Document name : @ViewBag.reqAtts[i].Requirments_Doc.Doc.name
+                                </div>
+
+                                <img src="~/Uploads/@ViewBag.reqAtts[i].path" style="width:100%;height:400px" />
+                            </div>
+                        }
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                        <br />
+                        <div style="text-align:center">
+                            @for (int i = 0; i < ViewBag.reqAtts.Count; i++)
+                {
+                                <span class="dot" onclick="currentSlide(@(i+1))"></span>
+                            }
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="login-form-area mg-t-30 mg-b-15" style="width:900px; margin-right:-60px">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <form id="adminpro-register-form" class="adminpro-form">
+                                    <div class="col-lg-6">
+                                        <div class="login-bg" style="width: 600px;margin-right: -150px; height: 700px;">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="logo">
+                                                        <a href="#">
+                                                            <img src="~/Content/project/img/logo/images2.jpg" alt="" />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="login-title">
+                                                        <h1></h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p>الرد</p>
+                                                    </div>
+                                                    <input type="hidden" name="reqId" id="reqId" value="@ViewBag.req_id" />
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="cart-group">
+                                                        <label class="radio">
+                                                            <input type="radio" name="state" id="state" checked value="accepted"><i style="right: 45px;margin-top: 5px;"></i>موافق
+                                                        </label>
+                                                        <label class="radio">
+                                                            <input type="radio" name="state" id="state" value="rejected"><i style="right: 45px;margin-top: 5px;"></i>رفض
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p>الرساله</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-textarea-area">
+                                                        <textarea name="notes" class="contact-message" cols="30" rows="10" style="height:200px"></textarea>
+                                                        <i class="fa fa-comment login-user" style="left:0px;border-right: 1px solid;top: 10px;right: auto;"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-button-pro">
+
+                                                        <button type="submit" class="login-button login-button-rg"style="float:right">ارسال </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+}
+
+@section Scripts {
+<script>
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+
+    showNoti(n);
+    function showNoti(n) {
+        document.location.reload(true);
+        window.location.href = "/employee/ShowNotiReferece?noti_id=" + n;
+    }
+
+    function seeAll() {
+        document.location.reload(true);
+        window.location.href = "/employee/Get_All_Notification";
+    }
+
+</script>
+
+
+
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+@section Styles {
+    <link href="~/Content/showRequirements.css" rel="stylesheet" type="text/css" />
+}

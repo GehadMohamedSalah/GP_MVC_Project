@@ -1,0 +1,131 @@
+/*----------------------------------------*/
+/*  1.  accordion CSS
+/*----------------------------------------*/
+.wrapper-pro{
+    direction:rtl;
+}
+.content-inner-all{
+     direction:rtl;
+}
+.contact-clients-area mg-b-40{
+     direction:rtl;
+}
+.container-fluid{
+     direction:rtl;
+}
+.row{
+ direction:rtl;
+ height: 100px;
+}
+.col-lg-4 col-md-4 col-sm-6 col-xs-12{
+ direction:rtl;
+}
+.contact-client-single .ct-client-b-mg-30 .ct-client-b-mg-30-n .shadow-reset{
+ direction:rtl;
+}
+.col-lg-4{
+ direction:rtl;
+}
+.contact-client-img{
+ direction:rtl;
+}
+.nav-item .dropdown{
+ direction:rtl;
+}
+.angle-down-topmenu{
+     direction:rtl;
+}
+.dropdown-menu .animated flipInX{
+ direction:rtl;
+}
+.arrow{
+ direction:rtl;
+}
+.ditableform-loading{
+ direction:rtl;
+}
+.form-inline .editableform{
+ direction:rtl;
+}
+.control-group .form-group{
+ direction:rtl;
+}
+.editable-input{
+ direction:rtl;
+}
+.form-control .input-sm{
+     direction:rtl;
+}
+.editable-error-block .help-block{
+ direction:rtl;
+}
+.col-lg-8{
+ direction:rtl;
+}
+.contact-client-content{
+ direction:rtl;
+}
+.fa .fa-map-marker{
+     direction:rtl;
+}
+.contact-client-address{
+ direction:rtl;
+}
+.address-client-ct{
+ direction:rtl;
+}
+.header-top-area{
+ direction:rtl;
+}
+.fixed-header-top{
+     direction:rtl;
+}
+.container-fluid{
+     direction:rtl;
+         height: 10px;
+}
+.col-lg-1 .col-md-6 .col-sm-6 col-xs-12{
+     direction:rtl;
+}
+#sidebarCollapse{
+     direction:rtl;
+}
+.fa-bars{ direction:rtl;}
+.admin-logo .logo-wrap-pro{ direction:rtl;}
+.col-lg-6 .col-md-1 .col-sm-1 .col-xs-12{ direction:rtl;}
+.header-top-menu tabl-d-n{ direction:rtl;}
+.nav navbar-nav .mai-top-nav{ direction:rtl;}
+.nav-item{ direction:rtl;}
+.fa big-icon .fa-envelope{ direction:rtl;}
+.mini-dn{ direction:rtl;}
+.indicator-right-menu{ direction:rtl;}
+.fa-flask{ direction:rtl;}
+.dropdown-toggle{ direction:rtl;}
+.fa-angle-down{ direction:rtl;}
+.dropdown-item{ direction:rtl;}
+.fa .indicator-mn .fa-angle-left{
+    direction:rtl
+}
+.fa .big-icon .fa-home{
+    direction:rtl;
+}
+.n{
+     direction:rtl;
+}
+.sparkline13-outline-icon{
+    direction:ltr;
+}
+#table , td , th{
+     direction:rtl;
+     border: 1px solid #f1e2e2;
+
+}
+thead{
+     direction:rtl;
+   font-size: 22px;
+    font-weight: bold;
+}
+tbody{
+    font-size: 20px;
+    font-weight:500;
+}

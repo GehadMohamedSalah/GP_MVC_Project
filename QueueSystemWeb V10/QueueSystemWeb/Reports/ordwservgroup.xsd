@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ordwservgroup" targetNamespace="http://tempuri.org/ordwservgroup.xsd" xmlns:mstns="http://tempuri.org/ordwservgroup.xsd" xmlns="http://tempuri.org/ordwservgroup.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ordwservgroup" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ordwservgroup" msprop:Generator_UserDSName="ordwservgroup">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="servisewithorg" msprop:Generator_TableClassName="servisewithorgDataTable" msprop:Generator_TableVarName="tableservisewithorg" msprop:Generator_RowChangedName="servisewithorgRowChanged" msprop:Generator_TablePropName="servisewithorg" msprop:Generator_RowDeletingName="servisewithorgRowDeleting" msprop:Generator_RowChangingName="servisewithorgRowChanging" msprop:Generator_RowEvHandlerName="servisewithorgRowChangeEventHandler" msprop:Generator_RowDeletedName="servisewithorgRowDeleted" msprop:Generator_RowClassName="servisewithorgRow" msprop:Generator_UserTableName="servisewithorg" msprop:Generator_RowEvArgName="servisewithorgRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="serviceName" msprop:Generator_ColumnVarNameInTable="columnserviceName" msprop:Generator_ColumnPropNameInRow="serviceName" msprop:Generator_ColumnPropNameInTable="serviceNameColumn" msprop:Generator_UserColumnName="serviceName" type="xs:string" minOccurs="0" />
+              <xs:element name="org_name" msprop:Generator_ColumnVarNameInTable="columnorg_name" msprop:Generator_ColumnPropNameInRow="org_name" msprop:Generator_ColumnPropNameInTable="org_nameColumn" msprop:Generator_UserColumnName="org_name" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:servisewithorg" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

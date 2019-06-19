@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d293d8c831c4c23a9eca8c128189abc" Name="Diagram1">
+        <EntityTypeShape EntityType="QueueSystemDBModel.Appointments_" Width="1.5" PointX="9.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Branch" Width="1.5" PointX="7.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Doc" Width="1.5" PointX="7.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Emp_Org_Services" Width="1.5" PointX="12.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Job_title_" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Messages" Width="1.5" PointX="9.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Notification" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.organization" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Request" Width="1.5" PointX="12.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Request_attachement" Width="1.5" PointX="15" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Requirments_Doc" Width="1.5" PointX="9.75" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.Services_" Width="1.5" PointX="7.5" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueueSystemDBModel.user" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Appointments__Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Appointments__Services_" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Appointments__user" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Branch_organization" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Emp_Org_Services_organization" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Messages_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Requirments_Doc_Doc" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Emp_Org_Services_Services_" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Emp_Org_Services_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Emp_Org_Services_user" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_user_Job_title_" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Messages_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Messages_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Notification_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Notification_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_organization_user" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Services__organization" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_attachement_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_Services_" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_user" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_user1" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Request_attachement_Requirments_Doc" ManuallyRouted="false" />
+        <AssociationConnector Association="QueueSystemDBModel.FK_Requirments_Doc_Services_" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

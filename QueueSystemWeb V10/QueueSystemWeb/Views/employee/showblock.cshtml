@@ -1,0 +1,251 @@
+﻿@model QueueSystemWeb.Models.user
+
+@{
+    ViewBag.Title = "showemp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:none">
+    @Session["UserID"];
+    @Session["UserName"];
+</div>
+
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="admin-logo logo-wrap-pro">
+                        <a href="#">
+                            <img src="@Url.Content(" ~/Content/project/")img/logo/log.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+                            <li class="nav-item">
+                                <a style="text-align:center;display:block;" onclick="seeAll()">كل الاشعارات</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-bell"></i>
+                                    @if (@ViewBag.countUnseenNotis != 0)
+                                    {
+                                        <span style="background-color: red;color: white;font-size: 13px;position: absolute;top:10px;right: 10px;width:20px;height:20px;border-radius:100%;text-align:center;">@ViewBag.countUnseenNotis</span>
+                                    }
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX" style="overflow-y:scroll; height:400px;width:400px;">
+                                    @foreach (var x in ViewBag.allNotis)
+                                    {
+                                        if (x.seen == true)
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                <span id="seen" style="background-color: dodgerblue;width:7px;height:7px;border-radius:100%;position: absolute;right:3px;"></span>
+                                            </a>
+                                        }
+
+                                    }
+                                    @*<div style="background-color:#ff8196;color:black;width:382px;border:groove;display:inline-block;">
+                    <a style="text-align:center;display:block;" onclick="seeAll()">See All</a>
+                </div>*@
+                                </div>
+                            </li>
+
+
+
+                            <li class="nav-item">
+                                <a href="/employee/CheckAttend" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-check"></i>
+                                    <span class="mini-dn">مراجعه الحضور</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-eye"></i> عرض <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX">
+                                    <a href="/employee/ReplayComplainOrInquire" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-comment login-user"></i>
+                                        <span class="mini-dn">الرسائل</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                    <a href="/employee/Showrequests" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-dropbox"></i>
+                                        <span class="mini-dn">الطالبات</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+
+                                 
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/employee/Reserve" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-ticket"></i>
+                                    <span class="mini-dn">الحجز</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/employee/EditProfile" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">تعديل الصفحه الشخصيه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="~/employee/Index" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-backward"></i>
+                                    <span class="mini-dn">رجوع</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="header-right-info">
+                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+
+
+                                </a>
+                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <li>
+                                        <a href="~/employee/Index"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>الصفحه الشخصيه</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Logout"style="margin-left:20px"><span class="adminpro-icon adminpro-locked author-log-ic"></span>تسجيل الخروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div style="margin-right:50px">
+
+
+    <div class="sparkline8-hd" style="margin-top:120px;">
+        <div class="main-sparkline8-hd">
+            <h1>المستخدمين المحظورين</h1>
+        </div>
+    </div>
+    <div class="sparkline8-graph">
+        <div class="static-table-list">
+            <table class="table" data-toggle="table">
+                <thead style="background-color:#ebebeb">
+                    <tr>
+
+                        <th>هويه العميل</th>
+                        <th>اسم العميل</th>
+                        <th>الغاء الحظر</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < ViewBag.numberRow; i++)
+                    {
+                        <tr>
+                            <td>@ViewBag.users[i].id</td>
+                            <td class="breakEmail">@ViewBag.users[i].username</td>
+                            <td>
+                              
+                                    <i class="fa big-icon fa-lock">
+
+                                        @Html.ActionLink("الغاء الحظر", "unblock", new { @id = @ViewBag.users[i].id }
+                                , new { onclick = "return confirm('هل انت متأكد من انك تريد الغاء حظر المدير " + @ViewBag.users[i].name + "?');" })
+                                    </i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+            
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        showNoti(n);
+        function showNoti(n) {
+            document.location.reload(true);
+            window.location.href = "ShowNotiReferece?noti_id=" + n;
+        }
+
+        function seeAll() {
+            document.location.reload(true);
+            window.location.href = "Get_All_Notification";
+        }
+
+    </script>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>

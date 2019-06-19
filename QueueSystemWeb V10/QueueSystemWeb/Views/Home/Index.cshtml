@@ -1,0 +1,153 @@
+﻿@model QueueSystemWeb.Models.ResetPasswordModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+              </button>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+                            <li class="nav-item">
+                                <a href="#" role="button" aria-expanded="false">
+                                    
+                                    <span class="mini-dn" style="font-weight:bold; font-size:30px">مرحبا بكم في الموقع</span>
+                                   
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Home/Login" role="button" aria-expanded="false" style="margin-left:100px">
+                                    <i class="fa big-icon fa-lock"></i>
+                                    <span class="mini-dn" >Login</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*
+    <h2>Reset Password</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Reset Password</h4>
+            <hr />
+            <div class="text-danger">
+                @ViewBag.Message
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(a => a.ResetCode)
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    @section Scripts{
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    }
+*@
+<div class="login-form-area mg-t-30 mg-b-40" style="width:1200px;margin-left:300px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <form id="adminpro-form" class="adminpro-form">
+                <div class="col-lg-4">
+                    <div class="login-bg" style="width:550px">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="logo">
+                                    <a href="#">
+                                        <img src="@Url.Content("~/Content/project/")img/logo/images2.jpg" alt="" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>استرجاع الرقم السري</h1>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>الرقم السري</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="password" id="password" name="password" />
+                                    <i class="fa fa-lock login-user" style="left:70px;"></i>
+                                </div>
+                       
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>تاكيد الرقم السري</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="password" id="password" name="password" />
+                                    <i class="fa fa-lock login-user" style="left:70px;"></i>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button id="saveOrder" type="submit" class="login-button login-button-lg"style="float:right">تم</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</div>

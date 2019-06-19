@@ -1,0 +1,357 @@
+﻿@model IEnumerable<QueueSystemWeb.Models.Messages>
+
+@{
+    ViewBag.Title = "ReplayComplainOrInquire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="header-top-area">
+    <div class="fixed-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="admin-logo logo-wrap-pro">
+                        <a href="#">
+                            <img src="@Url.Content(" ~/Content/project/")img/logo/log.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                    <div class="header-top-menu tabl-d-n">
+                        <ul class="nav navbar-nav mai-top-nav">
+
+                            <li class="nav-item">
+                                <a style="text-align:center;display:block;" onclick="seeAll()">كل الاشعارات</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-bell"></i>
+                                    @if (@ViewBag.countUnseenNotis != 0)
+                                    {
+                                        <span style="background-color: red;color: white;font-size: 13px;position: absolute;top:10px;right: 10px;width:20px;height:20px;border-radius:100%;text-align:center;">@ViewBag.countUnseenNotis</span>
+                                    }
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX" style="overflow-y:scroll; height:400px;width:400px;">
+                                    @foreach (var x in ViewBag.allNotis)
+                                    {
+                                        if (x.seen == true)
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" id="noti" onclick="showNoti(@x.Id)">
+                                                @if (x.type_noti == "inquire")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال استعلام من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else if (x.type_noti == "complaint")
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال شكوى من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:white;font-size:18px;">تم ارسال طلب من العميل @x.user1.username </p>
+                                                    <p style="color:lightgray;font-size:16px;">@x.dateTime</p>
+                                                }
+                                                <span id="seen" style="background-color: dodgerblue;width:7px;height:7px;border-radius:100%;position: absolute;right:3px;"></span>
+                                            </a>
+                                        }
+
+                                    }
+                                    @*<div style="background-color:#ff8196;color:black;width:382px;border:groove;display:inline-block;">
+                    <a style="text-align:center;display:block;" onclick="seeAll()">See All</a>
+                </div>*@
+                                </div>
+                            </li>
+
+
+                           
+                            <li class="nav-item">
+                                <a href="/employee/CheckAttend" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-check"></i>
+                                    <span class="mini-dn">مراجعه الحضور</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                           
+                                
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-eye"></i> عرض <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <div role="menu" class="dropdown-menu animated flipInX">
+                                
+                                    <a href="/employee/Showrequests" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-dropbox"></i>
+                                        <span class="mini-dn">الطالبات</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                  
+                                    <a href="/employee/showblock" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <i class="fa fa-expeditedssl"></i>
+                                        <span class="mini-dn">العملاء المحظورين</span>
+                                        <span class="indicator-right-menu mini-dn"></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/employee/Reserve" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa fa-ticket"></i>
+                                    <span class="mini-dn">حجز</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/employee/EditProfile" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-edit"></i>
+                                    <span class="mini-dn">تعديل الصفحه الشخصيه</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="~/employee/Index" role="button" aria-expanded="false">
+                                    <i class="fa big-icon fa-backward"></i>
+                                    <span class="mini-dn">رجوع</span>
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                    <div class="header-right-info">
+                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+
+                            <li class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+
+
+                                </a>
+                                <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                    <li>
+                                        <a href="~/employee/Index"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>الصفحه الشخصيه</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/Logout"style="margin-left:20px"><span class="adminpro-icon adminpro-locked author-log-ic"></span>تسجيل الخروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div style="margin-right:50px">
+
+
+    <div class="sparkline8-hd" style="margin-top:120px;">
+
+
+        <div class="main-sparkline8-hd">
+            <h1 style="display:inline; margin-left:40px">الرد</h1>
+
+        </div>
+    </div>
+    <div class="sparkline8-graph">
+        <div class="static-table-list">
+            <table id="table" data-toggle="table" data-pagination="false" data-show-toggle="false" data-click-to-select="true" data-toolbar="#toolbar">
+
+                <thead>
+                    <tr>
+                     @*   <th>@Html.DisplayNameFor(model => model.msg) </th>
+    <th> @Html.DisplayNameFor(model => model.type)</th>
+    <th>@Html.DisplayNameFor(model => model.from)</th>*@
+                        <th>الرساله</th>
+                        <th>النوع</th>
+                        <th> من</th>
+                        <th>الرد</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @if (item.type == "inquire")
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.msg) </td>
+                                <td>استعلام</td>
+                                <td>@Html.DisplayFor(modelItem => item.from)</td>
+
+                            }
+                            else if(item.type == "complaint")
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.msg) </td>
+                                <td>شكوى</td>
+                                <td>@Html.DisplayFor(modelItem => item.from)</td>
+                            }
+
+                            @*<td><input type="button" value="Replay" id="Id" name="Id" onclick="Replay(this)" data-assigned-id="@item.Id" /></td>*@
+                            <td><input type="button" value="الرد" id="Id" name="Id" onclick="Replay(@item.Id)" /></td>
+                        </tr>
+                    }
+                  
+                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div id="AddReplay" class="modal fade" role="dialog" style="width:1200px;margin-right:300px">
+    <div class="login-form-area mg-t-30 mg-b-40">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <form id="adminpro-form" class="adminpro-form">
+                    <div class="col-lg-4">
+                        <div class="login-bg" style="height:500px">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img src="@Url.Content("~/Content/project/")img/logo/images2.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p>الرسائل</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-textarea-area" >
+                                        <textarea type="text" id="replay" name="replay" style="width:300px; height:200px"></textarea>
+                                        <i class="fa fa-comment login-user" style="left: 115px;border-right: 1px solid;top: 0px;right: auto;"></i>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="login-button-pro">
+                                        <button type="reset" class="login-button login-button-lg" data-dismiss="modal" style="margin-left:10px;width:150px"">غلق</button>
+                                        <button id="saveMessage" class="login-button login-button-rg" style="margin-left:10px">ارسال</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+    var id = 0;
+    function Replay(elem) {
+        $("#AddReplay").modal();
+        //var Id = $(elem).data('assigned-id');
+        alert(elem);
+        id=elem;
+        //$("#Id").val() = Id;
+    }
+
+    //After Click Save Button Pass All Data View To Controller For Save Database
+    function saveMessage(data) {
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/employee/ReplayComplainOrInquire",
+            data: data,
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+
+    //Collect Multiple Order List For Pass To Controller
+    $("#saveMessage").click(function (e) {
+        e.preventDefault();
+
+        var MessArr = [];
+        MessArr.length = 0;
+        MessArr.push({
+            replay: $("#replay").val(),
+            Id : id,
+
+            });
+
+        var data = JSON.stringify({
+            replay: $("#replay").val(),
+            Id: id,
+            complain_inquire: MessArr
+        });
+
+        $.when(saveMessage(data)).then(function (response) {
+            console.log(response);
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+
+    showNoti(n);
+    function showNoti(n) {
+        document.location.reload(true);
+        window.location.href = "ShowNotiReferece?noti_id=" + n;
+    }
+
+    function seeAll() {
+        document.location.reload(true);
+        window.location.href = "Get_All_Notification";
+    }
+    </script>
+}

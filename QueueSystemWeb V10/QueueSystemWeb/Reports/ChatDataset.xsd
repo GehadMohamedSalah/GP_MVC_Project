@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ChatDataset" targetNamespace="http://tempuri.org/ChatDataset.xsd" xmlns:mstns="http://tempuri.org/ChatDataset.xsd" xmlns="http://tempuri.org/ChatDataset.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ChatDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ChatDataset" msprop:Generator_UserDSName="ChatDataset">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="chat" msprop:Generator_TableClassName="chatDataTable" msprop:Generator_TableVarName="tablechat" msprop:Generator_TablePropName="chat" msprop:Generator_RowDeletingName="chatRowDeleting" msprop:Generator_RowChangingName="chatRowChanging" msprop:Generator_RowEvHandlerName="chatRowChangeEventHandler" msprop:Generator_RowDeletedName="chatRowDeleted" msprop:Generator_UserTableName="chat" msprop:Generator_RowChangedName="chatRowChanged" msprop:Generator_RowEvArgName="chatRowChangeEvent" msprop:Generator_RowClassName="chatRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="message" msprop:Generator_ColumnVarNameInTable="columnmessage" msprop:Generator_ColumnPropNameInRow="message" msprop:Generator_ColumnPropNameInTable="messageColumn" msprop:Generator_UserColumnName="message" type="xs:string" minOccurs="0" />
+              <xs:element name="sender_id" msprop:Generator_ColumnVarNameInTable="columnsender_id" msprop:Generator_ColumnPropNameInRow="sender_id" msprop:Generator_ColumnPropNameInTable="sender_idColumn" msprop:Generator_UserColumnName="sender_id" type="xs:int" minOccurs="0" />
+              <xs:element name="state" msprop:Generator_ColumnVarNameInTable="columnstate" msprop:Generator_ColumnPropNameInRow="state" msprop:Generator_ColumnPropNameInTable="stateColumn" msprop:Generator_UserColumnName="state" type="xs:short" minOccurs="0" />
+              <xs:element name="sender_name" msprop:Generator_ColumnVarNameInTable="columnsender_name" msprop:Generator_ColumnPropNameInRow="sender_name" msprop:Generator_ColumnPropNameInTable="sender_nameColumn" msprop:Generator_UserColumnName="sender_name" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:chat" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
